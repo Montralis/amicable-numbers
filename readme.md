@@ -29,3 +29,13 @@ I am a Perfect number: 28, 28
 I am a friendship number: 220, 284
 I am a Perfect number: 496, 496
 I am a friendship number: 1184, 1210
+```
+
+
+# Inspiration
+The program code was developed based on the book "The Housekeeper and the Professor" by Yoko Ogawa, which served as an inspiration for exploring numerical properties discussed in the book.
+
+
+Original Japanese Publication: The book was first published under the title "博士の愛した数式" ("Hakase no Aishita Sūgata") in 2003 in Japan. Written by: Yoko Ogawa and published by Shinchosha Publishing Co., Ltd.
+
+English Publication: The English translation titled "The Housekeeper and the Professor" released in 2009. (English Edition): Stephen Snyder
