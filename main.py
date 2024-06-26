@@ -14,7 +14,7 @@ def divisorGenerator(n):
     for divisor in reversed(large_divisors):
         yield divisor
 
-def findNumbers(limit):
+def findNumbers(limit: int, print_results: bool = True):
     """
     Find perfect and amicable (friendship) numbers up to the given limit.
     """
@@ -30,18 +30,24 @@ def findNumbers(limit):
     # Create a list of items to avoid modifying the dictionary while iterating
     items = list(numberDict.items())
 
+    results = []
+
     for key, value in items:
         key_str = str(key)
         value_str = str(value)
 
         if value_str in numberDict:
             if key_str == value_str:
-                print(f"I am a Perfect number: {key_str}, {value}")
+                results.append(f"I am a Perfect number: {key_str}, {value}")
             elif str(numberDict[value_str]) == key_str:
-                print(f"I am a friendship number: {key_str}, {value}")
+                results.append(f"I am a friendship number: {key_str}, {value}")
                 # Remove the pair from the dictionary to prevent double checking
                 numberDict.pop(value_str, None)
                 numberDict.pop(key_str, None)
+    
+    if print_results:
+        for result in results:
+            print(result)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Find perfect and amicable numbers up to a given limit.")
