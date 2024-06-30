@@ -1,53 +1,39 @@
-import math
 import argparse
 
-def divisorGenerator(n):
+def calculateDivisors(limit):
     """
-    Generate all divisors of a given number n.
+    Calculate the sum of proper divisors for each number up to the limit.
     """
-    large_divisors = []
-    for i in range(1, int(math.sqrt(n)) + 1):
-        if n % i == 0:
-            yield i
-            if i * i != n:
-                large_divisors.append(n // i)
-    for divisor in reversed(large_divisors):
-        yield divisor
+    divisors_sum = [0] * (limit + 1)
+
+    for i in range(1, limit // 2 + 1):
+        for j in range(2 * i, limit + 1, i):
+            divisors_sum[j] += i
+
+    return divisors_sum
 
 def findNumbers(limit: int, print_results: bool = True):
     """
-    Find perfect and amicable (friendship) numbers up to the given limit.
+    Find perfect and amicable numbers up to the given limit.
     """
-    numberDict = {}
-
-    # Populate the dictionary with the sum of proper divisors for each number
-    for i in range(1, limit + 1):
-        divisors = list(divisorGenerator(i))
-        if i in divisors:
-            divisors.remove(i)  # Remove the number itself to get the sum of proper divisors
-        numberDict[str(i)] = sum(divisors)
-
-    # Create a list of items to avoid modifying the dictionary while iterating
-    items = list(numberDict.items())
-
+    divisors_sum = calculateDivisors(limit)
     results = []
 
-    for key, value in items:
-        key_str = str(key)
-        value_str = str(value)
+    for i in range(1, limit + 1):
+        sum_i = divisors_sum[i]
+        if sum_i < limit + 1:
+            if i == sum_i:
+                results.append(f"I am a Perfect number: {i}")
+            elif sum_i != i and sum_i < limit + 1 and divisors_sum[sum_i] == i:
+                results.append(f"I am a friendship number: {i} and {sum_i}")
+                divisors_sum[sum_i] = 0  # Mark as processed
 
-        if value_str in numberDict:
-            if key_str == value_str:
-                results.append(f"I am a Perfect number: {key_str}, {value}")
-            elif str(numberDict[value_str]) == key_str:
-                results.append(f"I am a friendship number: {key_str}, {value}")
-                # Remove the pair from the dictionary to prevent double checking
-                numberDict.pop(value_str, None)
-                numberDict.pop(key_str, None)
-    
     if print_results:
-        for result in results:
-            print(result)
+        if results:
+            for result in results:
+                print(result)
+        else:
+            print("No perfect or amicable numbers found.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Find perfect and amicable numbers up to a given limit.")
