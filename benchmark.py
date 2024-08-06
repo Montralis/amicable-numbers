@@ -2,7 +2,7 @@ import argparse
 import time
 import matplotlib.pyplot as plt
 import os
-from main import findNumbers
+from main_gen2 import findNumbers
 
 def measure_time(limit):
     start_time = time.time()
